@@ -1,0 +1,37 @@
+import { React, useEffect} from 'react';
+
+function SearchBar(props) {
+    const showOptions = () => {
+        props.setIsOptionShown(!props.isOptionShown);
+    };
+
+    const handleKeyDown = (event) => {
+        if (event.key === 'Backspace') {
+            const searchQuery = "";
+            props.setQuery({...props.query, searchQuery});
+        }
+    };
+
+    const handleInputChange = (e) => {
+        const searchQuery = e.target.value;
+        props.setQuery(() => ({...props.query, searchQuery}));
+        
+    };
+
+    useEffect(() => {
+        props.onSearch();
+    }, [props.query]);
+    
+    return (
+        <div className="overflow-auto flex justify-center px-8 pb-4">
+            <div className="bg-gray-600 w-full flex rounded-2xl border-gray-400 overflow-hidden">
+                <input className="block w-full pl-4 rounded-l-2xl bg-transparent text-gray-300 placeholder-gray-300 border-l border-y border-gray-400 focus:ring-1 focus:outline-none focus:ring-inset focus:ring-gray-300" type="text" placeholder="Search" onKeyDown={ handleKeyDown } onChange={ handleInputChange }/>
+                <button className="px-4 py-2 bg-gray-600 relative z-10 rounded-r-2xl border text-gray-300 border-gray-400 hover:bg-gray-400 hover:text-gray-100" onClick={ showOptions }>
+                    {props.isOptionShown? "▼":"▲"}
+                </button>
+            </div>
+        </div>
+    );
+}
+
+export default SearchBar;
