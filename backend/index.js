@@ -12,12 +12,13 @@ const pool = mysql.createPool({
     database: process.env.DB_NAME
 });
 
-app.use(express.json())
 app.use(cors({
     origin: 'https://checklist-app-client.vercel.app',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
+app.use(express.json())
 
 app.get("/", (req, res) => {
     res.json("good mourning.")
