@@ -34,7 +34,7 @@ const Homepage = () => {
     useEffect(() => {
         const delayDebounce = setTimeout(() => {
             fetchAllRecords();
-        }, 0);
+        }, 10);
 
         return () => clearTimeout(delayDebounce); 
     }, [query]);
