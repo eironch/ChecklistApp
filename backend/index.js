@@ -29,14 +29,6 @@ app.get("/", (req, res) => {
     res.json("good mourning.")
 });
 
-pool.connect(err => {
-    if (err) {
-        console.error('Error connecting to the database: ' + err.stack);
-        return;
-    }
-    console.log('Successfully connected to the database.');
-});
-
 app.get("/student_records", (req, res) => {
     const queryParams = req.query;
     const searchQuery = queryParams.searchQuery;
