@@ -14,6 +14,10 @@ const db = mysql.createConnection({
 app.use(express.json())
 app.use(cors())
 
+app.get("/", (req, res) => {
+    res.json("good mourning.")
+})
+
 db.connect(err => {
     if (err) {
         console.error('Error connecting to the database: ' + err.stack);
