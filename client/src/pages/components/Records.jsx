@@ -22,11 +22,11 @@ const Records = (props) => {
         </div>
      
         <div className="pl-3 overflow-y-scroll rounded-x-2xl rounded-b-2xl max-w-full max-h-screen scrollable-div bg-gray-500 overflow-hidden" style={{maxHeight: `${props.isOptionShown ? "66.53svh" : "72.5svh"}`}}>
-            <table className="table table-fixed w-full rounded-x-2xl rounded-b-2xl text-gray-300 bg-gray-500 overflow-hidden">
+            <table className="table table-fixed w-full rounded-x-2xl text-gray-300 bg-gray-500 overflow-hidden">
                 <tbody>
                     {!props.records.some(record => (record)) && <td className="p-4 text-center text-lg font-bold">No results found. Please try adjusting your search criteria.</td>}
                     {props.records.map(record => (
-                        <tr key={record.course_code}>
+                        <tr className="hover:bg-gray-400 hover:text-white" key={record.course_code}>
                         <td className="p-4 text-center border-b-2 border-gray-400">{record.course_code}</td> 
                         <td className="p-4 text-center border-b-2 border-gray-400">{record.course_title}</td>
                         <td className="p-4 text-center border-b-2 border-gray-400">{record.credit_unit_lec}</td>
