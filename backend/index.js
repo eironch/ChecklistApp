@@ -13,7 +13,9 @@ const db = mysql.createConnection({
 
 app.use(express.json())
 app.use(cors({
-    origin: 'https://checklist-app-client.vercel.app'
+    origin: 'https://checklist-app-client.vercel.app',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.get("/", (req, res) => {
