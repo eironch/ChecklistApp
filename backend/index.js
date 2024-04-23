@@ -12,19 +12,24 @@ const pool = mysql.createPool({
     database: process.env.DB_NAME
 });
 
+pool.query('SELECT * FROM your_table', (error, results, fields) => {
+    if (error) throw error;
+    // Use results here
+    console.log(results);
+});
+
+app.use(express.json())
 app.use(cors({
     origin: 'https://checklist-app-client.vercel.app',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-app.use(express.json())
-
 app.get("/", (req, res) => {
     res.json("good mourning.")
 });
 
-db.connect(err => {
+pool.connect(err => {
     if (err) {
         console.error('Error connecting to the database: ' + err.stack);
         return;
