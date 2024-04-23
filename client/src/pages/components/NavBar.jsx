@@ -6,7 +6,7 @@ import YearTabs from './YearTabs'
 
 function NavBar(props) {
     return (
-        <div className="max-h-full overflow-hidden">
+        <div className="max-h-full">
             <Info/>
             <YearTabs query={ props.query } setQuery={ props.setQuery }/>
             <SearchBar onSearch={ props.onSearch } query={ props.query } setQuery={ props.setQuery }  isOptionShown={ props.isOptionShown } setIsOptionShown={ props.setIsOptionShown }/>

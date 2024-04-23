@@ -4,7 +4,6 @@ import axios from 'axios'
 import NavBar from './components/NavBar'
 import Records from './components/Records'
 
-import '../index.css';
 const Homepage = () => {
     const [records, setRecords] = useState([]);
     const [isOptionShown, setIsOptionShown] = useState(false);
@@ -30,8 +29,6 @@ const Homepage = () => {
     const fetchAllRecords = async () => {
         try {
             const res = await axios.get('http://localhost:8800/student_records', {params: query})
-            // console.log(query)
-            // console.log(res.data)
             setRecords(res.data);
         } catch(err) {
             console.log(err);
@@ -42,7 +39,7 @@ const Homepage = () => {
         fetchAllRecords();
     }, [query]);
 
-    return  <div className="max-h-full overflow-hidden">
+    return  <div className="max-h-full">
         <NavBar onSearch={ handleSearch } query={ query } setQuery={ setQuery }  isOptionShown={ isOptionShown } setIsOptionShown={ setIsOptionShown }/>
         <Records records={ records } isOptionShown={ isOptionShown }/>
     </div>

@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    background-color: rgb(75 85 99);
+}
+
 .scrollable-div::-webkit-scrollbar {
     width: 0.75rem; 
     background-color: transparent;
@@ -11,9 +15,4 @@
     background-color: rgba(0, 0, 0, 0.5); 
     border-radius: 6px;
     border: 3px solid transparent;
-}
-
-body {
-    background-color: rgb(75 85 99);
-    overflow: hidden;
 }

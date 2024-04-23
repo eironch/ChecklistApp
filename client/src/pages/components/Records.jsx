@@ -1,9 +1,9 @@
 import React from 'react';
 
 const Records = (props) => {
-    return  <div className="relative max-h-svh pb-4 px-8">
-        <div className="px-3 rounded-x-2xl rounded-t-2xl border-b-2 border-gray-400 text-gray-300 bg-gray-500">
-            <table className="table table-fixed w-full">
+    return  <div className="relative max-h-svh px-8 overflow-hidden">
+        <div className="px-3 rounded-x-2xl rounded-t-2xl border-b-2 border-gray-400 text-gray-300 bg-gray-500 overflow-hidden">
+            <table className="table table-fixed w-full overflow-hidden">
                 <thead>
                     <tr>
                         <th className="p-4 text-center" scope="col">Course Code</th>
@@ -21,7 +21,7 @@ const Records = (props) => {
             </table>
         </div>
      
-        <div className="pl-3 overflow-y-scroll overflow-hidden rounded-x-2xl rounded-b-2xl max-w-full max-h-screen scrollable-div bg-gray-500" style={{maxHeight: `${props.isOptionShown ? "66.53svh" : "72.5svh"}`}}>
+        <div className="pl-3 overflow-y-scroll rounded-x-2xl rounded-b-2xl max-w-full max-h-screen scrollable-div bg-gray-500 overflow-hidden" style={{maxHeight: `${props.isOptionShown ? "66.53svh" : "72.5svh"}`}}>
             <table className="table table-fixed w-full rounded-x-2xl rounded-b-2xl text-gray-300 bg-gray-500 overflow-hidden">
                 <tbody>
                     {!props.records.some(record => (record)) && <td className="p-4 text-center text-lg font-bold">No results found. Please try adjusting your search criteria.</td>}
