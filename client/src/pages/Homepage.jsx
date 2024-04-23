@@ -24,7 +24,7 @@ const Homepage = () => {
 
     const fetchAllRecords = async () => {
         try {
-            const res = await axios.get('http://localhost:8800/student_records', { params: query })
+            const res = await axios.get(`${process.env.REACT_APP_API_URL}/student_records`, { params: query })
             const data = await res.data
             setRecords(data);
         } catch(err) {

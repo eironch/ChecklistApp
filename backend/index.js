@@ -12,7 +12,9 @@ const db = mysql.createConnection({
 })
 
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+    origin: 'https://checklist-app-client.vercel.app/'
+}))
 
 app.get("/", (req, res) => {
     res.json("good mourning.")
