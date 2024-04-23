@@ -9,16 +9,16 @@ const db = mysql.createConnection({
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME
-})
+});
 
 app.use(express.json())
 app.use(cors({
-    origin: 'https://checklist-app-client.vercel.app/'
-}))
+    origin: 'https://checklist-app-client.vercel.app'
+}));
 
 app.get("/", (req, res) => {
     res.json("good mourning.")
-})
+});
 
 db.connect(err => {
     if (err) {
