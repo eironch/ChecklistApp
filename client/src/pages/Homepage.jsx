@@ -22,25 +22,26 @@ const Homepage = () => {
         instructorName: false
     });
 
-    const handleSearch = () => {
-        fetchAllRecords();
-    };
-
     const fetchAllRecords = async () => {
         try {
-            const res = await axios.get('http://localhost:8800/student_records', {params: query})
-            setRecords(res.data);
+            const res = await axios.get('http://localhost:8800/student_records', { params: query })
+            const data = await res.data
+            setRecords(data);
         } catch(err) {
             console.log(err);
         }
     }
 
     useEffect(() => {
-        fetchAllRecords();
+        const delayDebounce = setTimeout(() => {
+            fetchAllRecords();
+        }, 0);
+
+        return () => clearTimeout(delayDebounce); 
     }, [query]);
 
     return  <div className="max-h-full">
-        <NavBar onSearch={ handleSearch } query={ query } setQuery={ setQuery }  isOptionShown={ isOptionShown } setIsOptionShown={ setIsOptionShown }/>
+        <NavBar query={ query } setQuery={ setQuery }  isOptionShown={ isOptionShown } setIsOptionShown={ setIsOptionShown }/>
         <Records records={ records } isOptionShown={ isOptionShown }/>
     </div>
     ;

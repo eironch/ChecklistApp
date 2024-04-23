@@ -5,18 +5,22 @@ import cors from "cors"
 const app = express()
 
 const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "checklist"
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME
 })
 
 app.use(express.json())
 app.use(cors())
 
-app.get("/", (req, res) => {
-    res.json("good mourning.")
-})
+db.connect(err => {
+    if (err) {
+        console.error('Error connecting to the database: ' + err.stack);
+        return;
+    }
+    console.log('Successfully connected to the database.');
+});
 
 app.get("/student_records", (req, res) => {
     const queryParams = req.query;

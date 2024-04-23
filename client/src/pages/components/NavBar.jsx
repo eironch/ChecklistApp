@@ -9,7 +9,7 @@ function NavBar(props) {
         <div className="max-h-full">
             <Info/>
             <YearTabs query={ props.query } setQuery={ props.setQuery }/>
-            <SearchBar onSearch={ props.onSearch } query={ props.query } setQuery={ props.setQuery }  isOptionShown={ props.isOptionShown } setIsOptionShown={ props.setIsOptionShown }/>
+            <SearchBar query={ props.query } setQuery={ props.setQuery }  isOptionShown={ props.isOptionShown } setIsOptionShown={ props.setIsOptionShown }/>
             <SearchOptions query={ props.query } setQuery={ props.setQuery } isOptionShown={ props.isOptionShown } setIsOptionShown={ props.setIsOptionShown }/>
         </div>
     );

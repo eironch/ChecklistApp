@@ -17,10 +17,6 @@ function SearchBar(props) {
         props.setQuery(() => ({...props.query, searchQuery}));
     };
 
-    useEffect(() => {
-        props.onSearch();
-    }, [props.query]);
-    
     return (
         <div className="overflow-auto flex justify-center px-8 pb-4">
             <div className="bg-gray-600 w-full flex rounded-2xl border-gray-400">
