@@ -33,11 +33,6 @@ const Homepage = () => {
 
     useEffect(() => {
         fetchAllRecords();
-        const delayDebounce = setTimeout(() => {
-           
-        }, 100);
-
-        return () => clearTimeout(delayDebounce); 
     }, [query]);
 
     return  <div className="max-h-full">
