@@ -32,9 +32,10 @@ const Homepage = () => {
     }
 
     useEffect(() => {
+        fetchAllRecords();
         const delayDebounce = setTimeout(() => {
-            fetchAllRecords();
-        }, 20);
+           
+        }, 100);
 
         return () => clearTimeout(delayDebounce); 
     }, [query]);
