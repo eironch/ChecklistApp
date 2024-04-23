@@ -4,7 +4,8 @@ import cors from "cors"
 
 const app = express()
 
-const db = mysql.createConnection({
+const pool = mysql.createPool({
+    connectionLimit: 10,
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
@@ -89,7 +90,7 @@ app.get("/student_records", (req, res) => {
         }
     }
 
-    db.query(query, parameters, (err, data) => {
+    pool.query(query, parameters, (err, data) => {
         if (err) return res.json(err)
         return res.json(data)
     })
