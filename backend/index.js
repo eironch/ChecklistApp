@@ -23,11 +23,22 @@ app.get("/", (req, res) => {
     res.json("good mourning.")
 });
 
+app.get("/student_info", (req, res) => {
+    let query =  ` 
+    SELECT * FROM student_info
+    `;
+
+    pool.query(query, (err, data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+};
+
 app.get("/student_records", (req, res) => {
     const queryParams = req.query;
     const searchQuery = queryParams.searchQuery;
     let query =  `
-    SELECT * FROM  student_records
+    SELECT * FROM student_records
     LEFT JOIN course_info ON student_records.course_code = course_info.course_code
     LEFT JOIN instructor_info ON student_records.instructor_id = instructor_info.instructor_id
     `;

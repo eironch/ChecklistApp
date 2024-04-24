@@ -22,6 +22,10 @@ const Homepage = () => {
         instructorName: false
     });
 
+    const [studentInfo, setStudentInfo] = useState({
+        
+    });
+
     const fetchAllRecords = async () => {
         try {
             const res = await axios.get(`${process.env.REACT_APP_API_URL}/student_records`, { params: query })
@@ -31,13 +35,26 @@ const Homepage = () => {
         }
     }
 
+    const fetchStudentInfo = async () => {
+        try {
+            const res = await axios.get(`${process.env.REACT_APP_API_URL}/student_info`);
+            setStudentInfo(res.data);
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    useEffect(() => {
+        fetchStudentInfo();
+    });
+
     useEffect(() => {
         fetchAllRecords();
     }, [query]);
 
     return  <div className="max-h-full">
         <NavBar query={ query } setQuery={ setQuery }  isOptionShown={ isOptionShown } setIsOptionShown={ setIsOptionShown }/>
-        <Records records={ records } isOptionShown={ isOptionShown }/>
+        <Records records={ records } isOptionShown={ isOptionShown } studentInfo={ studentInfo }/>
     </div>
     ;
 }
