@@ -23,7 +23,12 @@ const Homepage = () => {
     });
 
     const [studentInfo, setStudentInfo] = useState({
-        
+        student_name: "",
+        student_num: "",
+        student_address: "",
+        admission_date: "",
+        contact_num: "",
+        adviser_name: "",
     });
 
     const fetchAllRecords = async () => {

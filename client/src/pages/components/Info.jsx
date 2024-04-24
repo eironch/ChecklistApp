@@ -1,7 +1,6 @@
 import React from 'react';
 
 function Info(props) {
-
     return (
         <div className="px-8 py-4 flex max-h-max overflow-hidden">
             <div className="w-full flex rounded-2xl border-gray-400 overflow-hidden">
