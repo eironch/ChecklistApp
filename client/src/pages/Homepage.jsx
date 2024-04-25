@@ -55,7 +55,7 @@ const Homepage = () => {
     return  (
         <div className="max-h-full">
             <NavBar startTransition={ startTransition } query={ query } setQuery={ setQuery }  isOptionShown={ isOptionShown } setIsOptionShown={ setIsOptionShown } studentInfo={ studentInfo }/>
-            <Records isPending={ isPending } records={ records } isOptionShown={ isOptionShown }/>
+            <Records records={ records } isOptionShown={ isOptionShown }/>
         </div>
     )
     ;
