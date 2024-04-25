@@ -1,4 +1,4 @@
-import React, { useTransition, useEffect, useState } from 'react'
+import React, { useTransition, useEffect, useState, useLayoutEffect } from 'react'
 import axios from 'axios'
 import NavBar from './components/NavBar'
 import Records from './components/Records'
@@ -23,7 +23,6 @@ const Homepage = () => {
         instructorName: false
     });
 
-
     const fetchAllRecords = async () => {
         try {
             const res = await axios.get(`${process.env.REACT_APP_API_URL}/student_records`, { params: query })
@@ -32,7 +31,7 @@ const Homepage = () => {
         } catch(err) {
             console.log(err);
         }
-    }
+    };
 
     const fetchStudentInfo = async () => {
         try {
@@ -42,10 +41,11 @@ const Homepage = () => {
         } catch (err) {
             console.log(err)
         }
-    }
+    };
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         fetchStudentInfo();
+        fetchAllRecords();
     }, []);
 
     useEffect(() => {
@@ -57,8 +57,7 @@ const Homepage = () => {
             <NavBar startTransition={ startTransition } query={ query } setQuery={ setQuery }  isOptionShown={ isOptionShown } setIsOptionShown={ setIsOptionShown } studentInfo={ studentInfo }/>
             <Records records={ records } isOptionShown={ isOptionShown }/>
         </div>
-    )
-    ;
-}
+    );
+};
 
-export default Homepage
+export default Homepage;
