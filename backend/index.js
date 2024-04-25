@@ -2,7 +2,7 @@ import express from "express"
 import mysql from "mysql"
 import cors from "cors"
 
-const app = express()
+const app = express();
 
 const pool = mysql.createPool({
     connectionLimit: 10,
@@ -40,7 +40,7 @@ app.get("/student_info", (req, res) => {
     pool.query(query, (err, data) => {
         if (err) return res.json(err)
         return res.json(data)
-    })
+    });
 });
 
 app.get("/student_records", (req, res) => {
@@ -96,7 +96,7 @@ app.get("/student_records", (req, res) => {
         }
     } else {
         if (queryParams.year !== "") {
-            query += `WHERE course_info.course_year LIKE ?`;
+            query += ` WHERE course_info.course_year LIKE ?`;
             parameters.push(`%${queryParams.year}%`);
         }
     }
@@ -104,9 +104,9 @@ app.get("/student_records", (req, res) => {
     pool.query(query, parameters, (err, data) => {
         if (err) return res.json(err)
         return res.json(data)
-    })
-})
+    });
+});
 
 app.listen(8800, () => {
-    console.log("Connected to backend!")
-})
+    console.log("Connected to backend!");
+});

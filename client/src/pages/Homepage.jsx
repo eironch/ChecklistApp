@@ -1,7 +1,7 @@
 import React, { useTransition, useEffect, useState, useLayoutEffect } from 'react'
 import axios from 'axios'
-import NavBar from './components/NavBar'
-import Records from './components/Records'
+import NavBar from '../components/NavBar'
+import Records from '../components/Records'
 
 const Homepage = () => {
     const [records, setRecords] = useState([]);
