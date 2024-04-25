@@ -3,8 +3,9 @@ import React from 'react';
 function SearchOptions(props) {
     const updateQuery = (e) => {
         const {name, checked} = e.target;
-        props.setQuery({...props.query, [name]: checked})
-        // console.log(props.query.courseCode == "true")
+        props.startTransition(() => {
+            props.setQuery({...props.query, [name]: checked})
+        });
     };
 
     return (

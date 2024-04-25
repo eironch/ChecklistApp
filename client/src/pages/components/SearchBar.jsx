@@ -8,13 +8,17 @@ function SearchBar(props) {
     const handleKeyDown = (event) => {
         if (event.key === 'Backspace') {
             const searchQuery = "";
-            props.setQuery({...props.query, searchQuery});
+            props.startTransition(() => {
+                props.setQuery({...props.query, searchQuery})
+            });
         }
     };
 
     const handleInputChange = (e) => {
         const searchQuery = e.target.value;
-        props.setQuery(() => ({...props.query, searchQuery}));
+        props.startTransition(() => {
+            props.setQuery({...props.query, searchQuery})
+        });
     };
 
     return (

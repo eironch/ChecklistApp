@@ -12,12 +12,21 @@ const pool = mysql.createPool({
     database: process.env.DB_NAME
 });
 
+// const pool = mysql.createPool({
+//     connectionLimit: 10,
+//     host: "sql6.freesqldatabase.com",
+//     user: "sql6701366",
+//     password: "GuPeawVz8w",
+//     database: "sql6701366"
+// });
+
+    
 app.use(express.json())
-app.use(cors({
-    origin: 'https://checklist-app-client.vercel.app',
+app.use(cors(
+    {origin: 'https://checklist-app-client.vercel.app',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
+    allowedHeaders: ['Content-Type', 'Authorization']}
+));
 
 app.get("/", (req, res) => {
     res.json("good mourning.")
@@ -32,7 +41,7 @@ app.get("/student_info", (req, res) => {
         if (err) return res.json(err)
         return res.json(data)
     })
-};
+});
 
 app.get("/student_records", (req, res) => {
     const queryParams = req.query;
@@ -77,7 +86,6 @@ app.get("/student_records", (req, res) => {
             }
         });
     }
-
 
     if (conditions.length > 0) {
         query += " WHERE (" + conditions.join(" OR ") + ")";

@@ -1,5 +1,4 @@
-import React from 'react'
-import {useEffect, useState} from 'react'
+import React, { useTransition, useEffect, useState } from 'react'
 import axios from 'axios'
 import NavBar from './components/NavBar'
 import Records from './components/Records'
@@ -7,6 +6,8 @@ import Records from './components/Records'
 const Homepage = () => {
     const [records, setRecords] = useState([]);
     const [isOptionShown, setIsOptionShown] = useState(false);
+    const [studentInfo, setStudentInfo] = useState([]);
+    const [isPending, startTransition] = useTransition();
     const [query, setQuery] = useState({
         searchQuery: '',
         year: '',
@@ -22,18 +23,11 @@ const Homepage = () => {
         instructorName: false
     });
 
-    const [studentInfo, setStudentInfo] = useState({
-        student_name: "",
-        student_num: "",
-        student_address: "",
-        admission_date: "",
-        contact_num: "",
-        adviser_name: "",
-    });
 
     const fetchAllRecords = async () => {
         try {
             const res = await axios.get(`${process.env.REACT_APP_API_URL}/student_records`, { params: query })
+            // const res = await axios.get(`http://localhost:8800/student_records`, { params: query })
             setRecords(res.data);
         } catch(err) {
             console.log(err);
@@ -43,6 +37,7 @@ const Homepage = () => {
     const fetchStudentInfo = async () => {
         try {
             const res = await axios.get(`${process.env.REACT_APP_API_URL}/student_info`);
+            // const res = await axios.get(`http://localhost:8800/student_info`);
             setStudentInfo(res.data);
         } catch (err) {
             console.log(err)
@@ -51,16 +46,18 @@ const Homepage = () => {
 
     useEffect(() => {
         fetchStudentInfo();
-    });
+    }, []);
 
     useEffect(() => {
         fetchAllRecords();
     }, [query]);
 
-    return  <div className="max-h-full">
-        <NavBar query={ query } setQuery={ setQuery }  isOptionShown={ isOptionShown } setIsOptionShown={ setIsOptionShown }/>
-        <Records records={ records } isOptionShown={ isOptionShown } studentInfo={ studentInfo }/>
-    </div>
+    return  (
+        <div className="max-h-full">
+            <NavBar startTransition={ startTransition } query={ query } setQuery={ setQuery }  isOptionShown={ isOptionShown } setIsOptionShown={ setIsOptionShown } studentInfo={ studentInfo }/>
+            <Records isPending={ isPending } records={ records } isOptionShown={ isOptionShown }/>
+        </div>
+    )
     ;
 }
 
