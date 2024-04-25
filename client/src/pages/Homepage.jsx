@@ -48,7 +48,7 @@ const Homepage = () => {
         fetchAllRecords();
     }, []);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         fetchAllRecords();
     }, [query]);
 
