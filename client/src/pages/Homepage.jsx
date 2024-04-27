@@ -1,9 +1,9 @@
-import React, { useTransition, useEffect, useState, useLayoutEffect } from 'react'
+import React, { useTransition, useState, useLayoutEffect } from 'react'
 import axios from 'axios'
 import NavBar from '../components/NavBar'
 import Records from '../components/Records'
 
-const Homepage = () => {
+function Homepage() {
     const [records, setRecords] = useState([]);
     const [isOptionShown, setIsOptionShown] = useState(false);
     const [studentInfo, setStudentInfo] = useState([]);
@@ -23,20 +23,20 @@ const Homepage = () => {
         instructorName: false
     });
 
-    const fetchAllRecords = async () => {
+    async function fetchAllRecords() {
         try {
-            const res = await axios.get(`${process.env.REACT_APP_API_URL}/student_records`, { params: query })
-            // const res = await axios.get(`http://localhost:8800/student_records`, { params: query })
+            // const res = await axios.get(`${process.env.REACT_APP_API_URL}/student_records`, { params: query })
+            const res = await axios.get(`http://localhost:8800/student_records`, { params: query })
             setRecords(res.data);
         } catch(err) {
             console.log(err);
         }
     };
 
-    const fetchStudentInfo = async () => {
+    async function fetchStudentInfo() {
         try {
-            const res = await axios.get(`${process.env.REACT_APP_API_URL}/student_info`);
-            // const res = await axios.get(`http://localhost:8800/student_info`);
+            // const res = await axios.get(`${process.env.REACT_APP_API_URL}/student_info`);
+            const res = await axios.get(`http://localhost:8800/student_info`);
             setStudentInfo(res.data);
         } catch (err) {
             console.log(err)

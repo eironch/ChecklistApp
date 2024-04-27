@@ -1,11 +1,11 @@
 import { React, useEffect} from 'react';
 
 function SearchBar(props) {
-    const showOptions = () => {
+    function showOptions() {
         props.setIsOptionShown(!props.isOptionShown);
     };
 
-    const handleKeyDown = (event) => {
+    function handleKeyDown(event) {
         if (event.key === 'Backspace') {
             const searchQuery = "";
             props.startTransition(() => {
@@ -14,7 +14,7 @@ function SearchBar(props) {
         }
     };
 
-    const handleInputChange = (e) => {
+    function handleInputChange(e) {
         const searchQuery = e.target.value;
         props.startTransition(() => {
             props.setQuery({...props.query, searchQuery})

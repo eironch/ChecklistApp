@@ -4,28 +4,27 @@ import cors from "cors"
 
 const app = express();
 
-const pool = mysql.createPool({
-    connectionLimit: 10,
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME
-});
-
 // const pool = mysql.createPool({
 //     connectionLimit: 10,
-//     host: "sql6.freesqldatabase.com",
-//     user: "sql6701366",
-//     password: "GuPeawVz8w",
-//     database: "sql6701366"
+//     host: process.env.DB_HOST,
+//     user: process.env.DB_USER,
+//     password: process.env.DB_PASS,
+//     database: process.env.DB_NAME
 // });
 
+const pool = mysql.createPool({
+    connectionLimit: 10,
+    host: "sql6.freesqldatabase.com",
+    user: "sql6701366",
+    password: "GuPeawVz8w",
+    database: "sql6701366"
+});
     
 app.use(express.json())
 app.use(cors(
-    {origin: 'https://checklist-app-client.vercel.app',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']}
+    // {origin: 'https://checklist-app-client.vercel.app',
+    // methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    // allowedHeaders: ['Content-Type', 'Authorization']}
 ));
 
 app.get("/", (req, res) => {

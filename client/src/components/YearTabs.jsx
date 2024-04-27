@@ -1,7 +1,7 @@
 import React from 'react';
 
 function YearTabs(props) {
-    const handleYearChange = (e) => {
+    function handleYearChange(e) {
         const yearChosen = e.target.name;
        props.startTransition(() => {
         props.setQuery({...props.query, year: `${props.query.year!==yearChosen? yearChosen : ''}`});

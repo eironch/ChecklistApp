@@ -1,7 +1,7 @@
 import React from 'react';
 
 function SearchOptions(props) {
-    const updateQuery = (e) => {
+    function updateQuery(e) {
         const {name, checked} = e.target;
         props.startTransition(() => {
             props.setQuery({...props.query, [name]: checked})
@@ -9,7 +9,7 @@ function SearchOptions(props) {
     };
 
     return (
-        <div>
+        <>
             {props.isOptionShown && (
             <div className="flex justify-center text-gray-300 pb-4 px-8">
                 <div className="w-full grid grid-cols-10">
@@ -55,7 +55,7 @@ function SearchOptions(props) {
                     </label>
                 </div>
             </div>)}
-        </div>
+        </>
     );
 }
 
