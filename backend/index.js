@@ -14,10 +14,11 @@ const app = express();
 
 const pool = mysql.createPool({
     connectionLimit: 10,
-    host: "sql210.infinityfree.com",
-    user: "if0_36416491",
-    password: "pZTiznzylyHc",
-    database: "if0_36416491_checklist"
+    host: "oi5.h.filess.io",
+    user: "checklist_anythingdo",
+    password: "08d63b649dd8d73e411bfc7d848ba1f4f540e72b",
+    database: "checklist_anythingdo",
+    port: "3307"
 });
     
 app.use(express.json())
@@ -107,8 +108,5 @@ app.get("/student_records", (req, res) => {
 });
 
 app.listen(8800, () => {
-    pool.query("select * from course_info", (err, data) => {
-        console.log(data)
-    });
     console.log("Connected to backend!");
 });
