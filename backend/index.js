@@ -14,10 +14,10 @@ const app = express();
 
 const pool = mysql.createPool({
     connectionLimit: 10,
-    host: "sql6.freesqldatabase.com",
-    user: "sql6701366",
-    password: "GuPeawVz8w",
-    database: "sql6701366"
+    host: "sql210.infinityfree.com",
+    user: "if0_36416491",
+    password: "pZTiznzylyHc",
+    database: "if0_36416491_checklist"
 });
     
 app.use(express.json())
@@ -26,6 +26,14 @@ app.use(cors(
     // methods: ['GET', 'POST', 'PUT', 'DELETE'],
     // allowedHeaders: ['Content-Type', 'Authorization']}
 ));
+
+pool.connect((err) => {
+    if (err) {
+        console.error('Error connecting: ' + err.stack);
+        return;
+    }
+    console.log('Connected as id ' + db.threadId);
+});
 
 app.get("/", (req, res) => {
     res.json("good mourning.")
@@ -107,5 +115,8 @@ app.get("/student_records", (req, res) => {
 });
 
 app.listen(8800, () => {
+    pool.query("select * from course_info", (err, data) => {
+        console.log(data)
+    });
     console.log("Connected to backend!");
 });
