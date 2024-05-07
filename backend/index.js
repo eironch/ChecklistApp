@@ -27,14 +27,6 @@ app.use(cors(
     // allowedHeaders: ['Content-Type', 'Authorization']}
 ));
 
-pool.connect((err) => {
-    if (err) {
-        console.error('Error connecting: ' + err.stack);
-        return;
-    }
-    console.log('Connected as id ' + db.threadId);
-});
-
 app.get("/", (req, res) => {
     res.json("good mourning.")
 });
