@@ -27,7 +27,7 @@ const Records = (props) => {
                     <tbody>
                         {
                             props.records &&
-                            !props.records.some(record => (record)) ? 
+                            props.records.length === 0 ? 
                             <tr>
                                 <td className="p-4 text-center text-lg font-bold">No results found. Please try adjusting your search criteria.</td>
                             </tr>
