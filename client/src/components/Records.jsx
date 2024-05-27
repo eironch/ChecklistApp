@@ -25,24 +25,27 @@ const Records = (props) => {
             <div className="pl-3 overflow-y-scroll rounded-x-2xl rounded-b-2xl max-w-full max-h-screen scrollable-div bg-gray-500 overflow-hidden" style={{maxHeight: `${props.isOptionShown ? "66.53svh" : "72.5svh"}`}}>
                 <table className="table table-fixed w-full rounded-x-2xl text-gray-300 bg-gray-500 overflow-hidden">
                     <tbody>
-                        {!props.records.some(record => (record)) && <tr>
+                        {
+                            !props.records.some(record => (record)) ? 
+                            <tr>
                                 <td className="p-4 text-center text-lg font-bold">No results found. Please try adjusting your search criteria.</td>
                             </tr>
+                            :
+                            props.records.map(record => (
+                                <tr className="hover:bg-gray-400 hover:text-white" key={record.course_code}>
+                                <td className="p-4 text-center border-b-2 border-gray-400">{record.course_code}</td> 
+                                <td className="p-4 text-center border-b-2 border-gray-400">{record.course_title}</td>
+                                <td className="p-4 text-center border-b-2 border-gray-400">{record.credit_unit_lec}</td>
+                                <td className="p-4 text-center border-b-2 border-gray-400">{record.credit_unit_lab}</td>
+                                <td className="p-4 text-center border-b-2 border-gray-400">{record.contact_hrs_lec}</td>
+                                <td className="p-4 text-center border-b-2 border-gray-400">{record.contact_hrs_lab}</td>
+                                <td className="p-4 text-center border-b-2 border-gray-400">{record.prerequisite}</td>      
+                                <td className="p-4 text-center border-b-2 border-gray-400">{record.year_taken && (<>Year {record.year_taken} Sem {record.sem_taken}</>)}</td>
+                                <td className="p-4 text-center border-b-2 border-gray-400">{record.final_grade}</td>
+                                <td className="p-4 text-center border-b-2 border-gray-400">{record.instructor_name}</td>  
+                                </tr>
+                            ))
                         }
-                        {props.records.map(record => (
-                            <tr className="hover:bg-gray-400 hover:text-white" key={record.course_code}>
-                            <td className="p-4 text-center border-b-2 border-gray-400">{record.course_code}</td> 
-                            <td className="p-4 text-center border-b-2 border-gray-400">{record.course_title}</td>
-                            <td className="p-4 text-center border-b-2 border-gray-400">{record.credit_unit_lec}</td>
-                            <td className="p-4 text-center border-b-2 border-gray-400">{record.credit_unit_lab}</td>
-                            <td className="p-4 text-center border-b-2 border-gray-400">{record.contact_hrs_lec}</td>
-                            <td className="p-4 text-center border-b-2 border-gray-400">{record.contact_hrs_lab}</td>
-                            <td className="p-4 text-center border-b-2 border-gray-400">{record.prerequisite}</td>      
-                            <td className="p-4 text-center border-b-2 border-gray-400">{record.year_taken && (<>Year {record.year_taken} Sem {record.sem_taken}</>)}</td>
-                            <td className="p-4 text-center border-b-2 border-gray-400">{record.final_grade}</td>
-                            <td className="p-4 text-center border-b-2 border-gray-400">{record.instructor_name}</td>  
-                            </tr>
-                        ))}
                     </tbody>
                 </table>
             </div>
