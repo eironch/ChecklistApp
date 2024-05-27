@@ -27,6 +27,7 @@ function Homepage() {
         try {
             const res = await axios.get(`${process.env.REACT_APP_API_URL}/student_records`, { params: query })
             // const res = await axios.get(`http://localhost:8800/student_records`, { params: query })
+            console.log(res.data)
             setRecords(res.data);
         } catch(err) {
             console.log(err);
@@ -37,6 +38,7 @@ function Homepage() {
         try {
             const res = await axios.get(`${process.env.REACT_APP_API_URL}/student_info`);
             // const res = await axios.get(`http://localhost:8800/student_info`);
+            console.log(res.data)
             setStudentInfo(res.data);
         } catch (err) {
             console.log(err)

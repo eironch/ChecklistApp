@@ -28,7 +28,7 @@ app.get("/student_info", (req, res) => {
     let query =  ` 
     SELECT * FROM student_info
     `;
-
+    
     pool.query(query, (err, data) => {
         if (err) return res.json(err)
         return res.json(data)
