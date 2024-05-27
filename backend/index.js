@@ -91,10 +91,9 @@ app.get("/student_records", (req, res) => {
             parameters.push(`%${queryParams.year}%`);
         }
     }
-    console.log(parameters)
+
     pool.query(query, parameters, (err, data) => {
         if (err) return res.json(err)
-        console.log(data)
         return res.json(data)
     });
 });
