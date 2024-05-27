@@ -10,7 +10,7 @@ function YearTabs(props) {
 
     return (
         <div className="flex justify-center px-8 pb-4">
-            <div className="grid w-full grid-cols-4">
+            <div className="grid w-full grid-cols-5">
                 <button className={`${props.query.year === "1" ? "bg-gray-500" : "bg-gray-600 "} px-4 py-2 relative z-10 rounded-l-2xl border text-gray-300 border-gray-400 hover:bg-gray-400 hover:text-gray-100`} name="1" onClick={ handleYearChange }>
                     Freshman
                 </button>
