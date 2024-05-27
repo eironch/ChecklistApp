@@ -33,17 +33,17 @@ const Records = (props) => {
                             :
                             props.records.length > 0 &&
                             props.records.map(record => (
-                                <tr className="hover:bg-gray-400 hover:text-white" key={record.course_code}>
-                                <td className="p-4 text-center border-b-2 border-gray-400">{record.course_code}</td> 
-                                <td className="p-4 text-center border-b-2 border-gray-400">{record.course_title}</td>
-                                <td className="p-4 text-center border-b-2 border-gray-400">{record.credit_unit_lec}</td>
-                                <td className="p-4 text-center border-b-2 border-gray-400">{record.credit_unit_lab}</td>
-                                <td className="p-4 text-center border-b-2 border-gray-400">{record.contact_hrs_lec}</td>
-                                <td className="p-4 text-center border-b-2 border-gray-400">{record.contact_hrs_lab}</td>
-                                <td className="p-4 text-center border-b-2 border-gray-400">{record.prerequisite}</td>      
-                                <td className="p-4 text-center border-b-2 border-gray-400">{record.year_taken && (<>Year {record.year_taken} Sem {record.sem_taken}</>)}</td>
-                                <td className="p-4 text-center border-b-2 border-gray-400">{record.final_grade}</td>
-                                <td className="p-4 text-center border-b-2 border-gray-400">{record.instructor_name}</td>  
+                                <tr className="rounded-2xl hover:bg-gray-400 hover:text-white" key={record.course_code}>
+                                    <td className="p-4 text-center border-b-2 border-gray-400">{record.course_code}</td> 
+                                    <td className="p-4 text-center border-b-2 border-gray-400">{record.course_title}</td>
+                                    <td className="p-4 text-center border-b-2 border-gray-400">{record.credit_unit_lec}</td>
+                                    <td className="p-4 text-center border-b-2 border-gray-400">{record.credit_unit_lab}</td>
+                                    <td className="p-4 text-center border-b-2 border-gray-400">{record.contact_hrs_lec}</td>
+                                    <td className="p-4 text-center border-b-2 border-gray-400">{record.contact_hrs_lab}</td>
+                                    <td className="p-4 text-center border-b-2 border-gray-400">{record.prerequisite}</td>      
+                                    <td className="p-4 text-center border-b-2 border-gray-400">{record.year_taken && (<>Year {record.year_taken} Sem {record.sem_taken}</>)}</td>
+                                    <td className="p-4 text-center border-b-2 border-gray-400">{record.final_grade}</td>
+                                    <td className="p-4 text-center border-b-2 border-gray-400">{record.instructor_name}</td>  
                                 </tr>
                             ))
                         }
