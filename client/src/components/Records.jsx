@@ -26,12 +26,12 @@ const Records = (props) => {
                 <table className="table table-fixed w-full rounded-x-2xl text-gray-300 bg-gray-500 overflow-hidden">
                     <tbody>
                         {
-                            props.records &&
                             props.records.length === 0 ? 
                             <tr>
                                 <td className="p-4 text-center text-lg font-bold">No results found. Please try adjusting your search criteria.</td>
                             </tr>
                             :
+                            props.records.length > 0 &&
                             props.records.map(record => (
                                 <tr className="hover:bg-gray-400 hover:text-white" key={record.course_code}>
                                 <td className="p-4 text-center border-b-2 border-gray-400">{record.course_code}</td> 
