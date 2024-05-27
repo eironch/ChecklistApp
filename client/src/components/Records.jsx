@@ -26,6 +26,7 @@ const Records = (props) => {
                 <table className="table table-fixed w-full rounded-x-2xl text-gray-300 bg-gray-500 overflow-hidden">
                     <tbody>
                         {
+                            props.records &&
                             !props.records.some(record => (record)) ? 
                             <tr>
                                 <td className="p-4 text-center text-lg font-bold">No results found. Please try adjusting your search criteria.</td>
