@@ -5,8 +5,8 @@ function Info(props) {
 
     return (
         <div className="px-8 py-4 flex max-h-max overflow-hidden">
-            <div className="w-full flex rounded-2xl border-gray-400 overflow-hidden">
-                <div className="mr-4 px-4 py-2 text-nowrap text-center bg-gray-500 relative z-10 rounded-2xl border text-gray-200 border-gray-400 overflow-visible">
+            <div className="w-full flex rounded-2xl font-bold border-gray-400 overflow-hidden">
+                <div className="mr-4 px-4 py-2 text-nowrap text-center bg-gray-500 relative z-10 rounded-2xl border text-gray-300 border-gray-400 overflow-visible">
                     <b>Student Info</b>
                 </div>
                     <div className="px-4 py-2 text-nowrap text-center bg-gray-500 relative z-10 rounded-l-2xl border font-bold text-gray-300 border-gray-400 overflow-hidden">
@@ -42,7 +42,7 @@ function Info(props) {
                 <div className="px-4 py-2 text-nowrap text-center bg-gray-500 relative z-10 border text-gray-300 font-bold border-gray-400 overflow-hidden">
                     Adviser Name
                 </div>
-                <div className="px-4 py-2 w-1/12 text-nowrap text-center bg-gray-500 relative z-10 rounded-r-2xl border text-gray-300 border-gray-400 overflow-hidden">
+                <div className={`${info ? "w-16 " :  "w-3/12"} px-4 py-2 text-nowrap text-center bg-gray-500 relative z-10 rounded-r-2xl border text-gray-300 border-gray-400 overflow-hidden`}>
                     {info?.adviser_name || 'N/A'}
                 </div>
             </div>

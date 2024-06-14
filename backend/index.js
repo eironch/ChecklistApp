@@ -37,10 +37,11 @@ app.get("/student_info", (req, res) => {
 app.get("/student_records", (req, res) => {
     const queryParams = req.query;
     const searchQuery = queryParams.searchQuery;
+    const offset = queryParams.offset;
     let query =  `
-    SELECT * FROM student_records
-    LEFT JOIN course_info ON student_records.course_code = course_info.course_code
-    LEFT JOIN instructor_info ON student_records.instructor_id = instructor_info.instructor_id
+        SELECT * FROM student_records
+        LEFT JOIN course_info ON student_records.course_code = course_info.course_code
+        LEFT JOIN instructor_info ON student_records.instructor_id = instructor_info.instructor_id
     `;
     
     const sqlColumns = {
@@ -91,6 +92,10 @@ app.get("/student_records", (req, res) => {
             parameters.push(`%${queryParams.year}%`);
         }
     }
+
+    query += " LIMIT 16 OFFSET ?";
+
+    parameters.push(offset * 16);
 
     pool.query(query, parameters, (err, data) => {
         if (err) return res.json(err)
