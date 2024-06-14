@@ -4,17 +4,15 @@ import { debounce } from 'lodash'
 
 const Records = (props) => {
     const containerRef = useRef(null)
-    const isInitialRender = useRef(0)
+    const isInitialRender = useRef(true)
     const [offset, setOffset] = useState(0)
     const [loadNextRecords, setLoadNextRecords] = useState("No")
     const loadNextRecordsRef = useRef(loadNextRecords)
 
     async function fetchAllRecords() {
         try {
-            console.log({...props.query, offset})
             const res = await axios.get(`${process.env.REACT_APP_API_URL}/student_records`, { params: {...props.query, offset} })
             // const res = await axios.get(`http://localhost:8800/student_records`, { params: {...props.query, offset} })
-            console.log(res)
             if (res.data.length === 0) {
                 return setLoadNextRecords("Never");
             }
@@ -65,8 +63,8 @@ const Records = (props) => {
     }, [loadNextRecords])
 
     useEffect(() => {
-        if (isInitialRender.current < 2) {
-            isInitialRender.current += 1;
+        if (isInitialRender.current) {
+            isInitialRender.current = false;
         } else {
             fetchAllRecords();
         }
