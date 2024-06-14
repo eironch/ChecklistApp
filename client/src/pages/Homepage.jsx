@@ -28,8 +28,8 @@ function Homepage() {
 
     async function fetchStudentInfo() {
         try {
-            // const res = await axios.get(`${process.env.REACT_APP_API_URL}/student_info`);
-            const res = await axios.get(`http://localhost:8800/student_info`);
+            const res = await axios.get(`${process.env.REACT_APP_API_URL}/student_info`);
+            // const res = await axios.get(`http://localhost:8800/student_info`);
             setStudentInfo(res.data);
         } catch (err) {
             console.log(err)
@@ -38,8 +38,8 @@ function Homepage() {
 
     const debouncedFetchAllRecords = useCallback(debounce(async () => {
             try {
-                // const res = await axios.get(`${process.env.REACT_APP_API_URL}/student_records`, { params: query })
-                const res = await axios.get(`http://localhost:8800/student_records`, { params: query })
+                const res = await axios.get(`${process.env.REACT_APP_API_URL}/student_records`, { params: query })
+                // const res = await axios.get(`http://localhost:8800/student_records`, { params: query })
                 setRecords(res.data);
             } catch(err) {
                 console.log(err);

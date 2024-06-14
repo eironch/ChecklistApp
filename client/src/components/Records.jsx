@@ -11,8 +11,8 @@ const Records = (props) => {
 
     async function fetchAllRecords() {
         try {
-            // const res = await axios.get(`${process.env.REACT_APP_API_URL}/student_records`, { params: query })
-            const res = await axios.get(`http://localhost:8800/student_records`, { params: {...props.query, offset} })
+            const res = await axios.get(`${process.env.REACT_APP_API_URL}/student_records`, { params: query })
+            // const res = await axios.get(`http://localhost:8800/student_records`, { params: {...props.query, offset} })
             if (res.data.length === 0) {
                 return setLoadNextRecords("Never");
             }
