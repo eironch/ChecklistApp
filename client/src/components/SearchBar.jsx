@@ -52,7 +52,7 @@ function SearchBar(props) {
                     type="text" placeholder="Search" value={ searchValue } 
                     onKeyDown={ handleKeyDown } onChange={ (e) => {handleInputChange(e)} } 
                 />
-                <button className={`${props.isOptionShown ? "bg-gray-500" : "bg-gray-600"} px-4 py-2 relative z-10 rounded-r-2xl border text-gray-300 border-gray-400 hover:bg-gray-400 hover:text-white`} onClick={ showOptions }>
+                <button className={`${props.isOptionShown ? "bg-gray-500" : "bg-gray-600"} px-4 py-2 relative z-10 rounded-r-2xl border text-gray-300 border-gray-400 hover:bg-gray-400 hover:text-gray-100`} onClick={ showOptions }>
                     {props.isOptionShown? "▼":"▲"}
                 </button>
             </div>

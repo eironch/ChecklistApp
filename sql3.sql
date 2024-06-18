@@ -521,7 +521,7 @@ INSERT INTO course_info VALUES (
 ),(
 	'COSC 199',
 	'Practicum (240 hours)',
-	3,
+	5,
 	2,
 	3,
 	null,

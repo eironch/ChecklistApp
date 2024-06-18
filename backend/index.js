@@ -4,15 +4,34 @@ import cors from "cors"
 
 const app = express();
 
-const pool = mysql.createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME,
-    port: process.env.DB_PORT
-});
+// const pool = mysql.createPool({
+//     host: process.env.DB_HOST,
+//     user: process.env.DB_USER,
+//     password: process.env.DB_PASS,
+//     database: process.env.DB_NAME,
+//     port: process.env.DB_PORT
+// });
 
-app.use(express.json())
+
+
+const pool = mysql.createPool({
+
+    host: "oi5.h.filess.io",
+    
+    user: "checklist_anythingdo",
+    
+    password: "08d63b649dd8d73e411bfc7d848ba1f4f540e72b",
+    
+    database: "checklist_anythingdo",
+    
+    port: 3307
+    
+    });
+    
+    
+    
+
+app.use(express.json());
 app.use(cors(
     // {origin: 'https://checklist-app-client.vercel.app',
     // methods: ['GET', 'POST', 'PUT', 'DELETE'],
@@ -35,11 +54,10 @@ app.get("/student_info", (req, res) => {
 });
 
 app.get("/student_records", (req, res) => {
-    const queryParams = req.query;
+    const queryParams = req.query.queryParams;
     const searchQuery = queryParams.searchQuery;
-    const offset = queryParams.offset;
+    let offset = req.query.offset;
     let query =  `
-        SELECT * FROM student_records
         LEFT JOIN course_info ON student_records.course_code = course_info.course_code
         LEFT JOIN instructor_info ON student_records.instructor_id = instructor_info.instructor_id
     `;
@@ -61,7 +79,7 @@ app.get("/student_records", (req, res) => {
     let conditions = [];
     let parameters = [];
 
-    const hasValue = Object.entries(req.query).some(([key, value]) =>
+    const hasValue = Object.entries(queryParams).some(([key, value]) =>
         key !== "searchQuery" && value === "true" && value !== "false"
     );
 
@@ -93,13 +111,27 @@ app.get("/student_records", (req, res) => {
         }
     }
 
-    query += " LIMIT 16 OFFSET ?";
-
-    parameters.push(offset * 16);
-
-    pool.query(query, parameters, (err, data) => {
+    query +=  " ORDER BY course_info.course_year ASC, course_info.course_sem ASC"
+    
+    const countQuery = "SELECT COUNT(*) AS totalRows FROM student_records" + query
+    pool.query(countQuery, parameters, (err, data) => {
         if (err) return res.json(err)
-        return res.json(data)
+
+        const totalRows = data[0].totalRows;
+        const maxOffset = Math.ceil(totalRows / 10);
+        
+        if (offset * 10 > totalRows) {
+            offset = 0
+        }
+
+        query += " LIMIT 10 OFFSET ?";
+        parameters.push(offset * 10);
+
+        query = "SELECT * FROM student_records" + query
+        pool.query(query, parameters, (err, data) => {
+            if (err) return res.json(err)
+            return res.json({ records: data, maxOffset, offset })
+        });
     });
 });
 

@@ -1,86 +1,18 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react';
-import axios from 'axios';
-import { debounce } from 'lodash'
+import React from 'react';
 
-const Records = (props) => {
-    const containerRef = useRef(null)
-    const isInitialRender = useRef(true)
-    const [offset, setOffset] = useState(0)
-    const [loadNextRecords, setLoadNextRecords] = useState("No")
-    const loadNextRecordsRef = useRef(loadNextRecords)
-
-    async function fetchAllRecords() {
-        try {
-            const res = await axios.get(`${process.env.REACT_APP_API_URL}/student_records`, { params: {...props.query, offset} })
-            // const res = await axios.get(`http://localhost:8800/student_records`, { params: {...props.query, offset} })
-            if (res.data.length === 0) {
-                return setLoadNextRecords("Never");
-            }
-            const newRecords = [...props.records, ...res.data];
-            setLoadNextRecords("No");
-            props.setRecords(newRecords);
-        } catch(err) {
-            console.log(err);
+function Records(props) {
+    function changeOffset(index) {
+        if (index > props.maxOffset) {
+            return;
         }
+
+        props.debouncedFetchAllRecords(index);
+        props.setRecords(["Fetching"]);
+        props.setCurrentOffset(index);
     }
 
-    const debouncedHandleScroll = useCallback(debounce(() => {
-            if (loadNextRecordsRef.current === "Yes" || loadNextRecordsRef.current === "Never") {
-                return;
-            }
-
-            const container = containerRef.current
-
-            if (container) {
-                const scrollTop = container.scrollTop;
-                const scrollHeight = container.scrollHeight;
-                const clientHeight = container.clientHeight;
-                const scrollPercentage = (scrollTop / (scrollHeight - clientHeight)) * 100;
-                
-                if (scrollPercentage >= 75) {
-                    setLoadNextRecords("Yes");
-                    setOffset(prevOffSet => prevOffSet + 1)
-                }
-            }
-        }, 150),[]
-    )
-
-    useEffect(() => {
-        const container = containerRef.current;
-        if (container) {
-            container.addEventListener('scroll', debouncedHandleScroll);
-        }
-
-        return () => {
-            if (container) {
-                container.removeEventListener('scroll', debouncedHandleScroll);
-            }
-        }
-    }, []);
-
-    useEffect(() => {
-        loadNextRecordsRef.current = loadNextRecords;
-    }, [loadNextRecords])
-
-    useEffect(() => {
-        if (isInitialRender.current) {
-            isInitialRender.current = false;
-        } else {
-            fetchAllRecords();
-        }
-    }, [offset]);
-
-    useEffect(() => {
-        if (containerRef.current) {
-            containerRef.current.scrollTop = 0;
-        }
-
-        setLoadNextRecords("No")
-        setOffset(0)
-    }, [props.query])
-
     return  (
-        <div className="relative max-h-svh px-8 overflow-hidden">
+        <div className="max-h-svh px-8 overflow-hidden">
             <div className="px-3 rounded-x-2xl rounded-t-2xl border border-b-2 border-gray-400 text-gray-300 bg-gray-500 overflow-hidden">
                 <table className="table table-fixed w-full overflow-hidden">
                     <thead>
@@ -100,8 +32,9 @@ const Records = (props) => {
                     </thead>
                 </table>
             </div>
-            <div className="pl-3 overflow-y-scroll border border-t-0 border-gray-400 rounded-x-2xl rounded-b-2xl max-w-full max-h-screen scrollable-div bg-gray-500 overflow-hidden" ref={ containerRef } style={{height: `${props.isOptionShown ? "64svh" : "70svh"}`}}>
+            <div className="pl-3 overflow-y-scroll border border-t-0 border-gray-400 rounded-x-2xl max-w-full max-h-screen scrollable-div bg-gray-500 overflow-hidden" style={{height: `${props.isOptionShown ? "57.1svh" : "63.10svh" }`}}>
                 {
+                    props.records &&
                     props.records[0] !== "Fetching" ?
                     props.records.length === 0 ?
                     <p className="flex w-full h-full justify-center items-center text-lg font-bold text-center text-gray-300">
@@ -113,18 +46,18 @@ const Records = (props) => {
                             {
                                 props.records.length > 0 &&
                                 props.records.map((record, index) => (
-                                    <tr className="hover:bg-gray-400 hover:text-white" key={index}>
-                                        <td className="p-4 text-center border-b-2 border-gray-400">{record.course_code}</td> 
-                                        <td className="p-4 text-center border-b-2 border-gray-400">{record.course_title}</td>
-                                        <td className="p-4 text-center border-b-2 border-gray-400">{record.credit_unit_lec}</td>
-                                        <td className="p-4 text-center border-b-2 border-gray-400">{record.credit_unit_lab}</td>
-                                        <td className="p-4 text-center border-b-2 border-gray-400">{record.contact_hrs_lec}</td>
-                                        <td className="p-4 text-center border-b-2 border-gray-400">{record.contact_hrs_lab}</td>
-                                        <td className="p-4 text-center border-b-2 border-gray-400">{record.prerequisite}</td>
-                                        <td className="p-4 text-center border-b-2 border-gray-400">{record.year_taken && (<>Year {record.year_taken} Sem {record.sem_taken}</>)}</td>
-                                        <td className="p-4 text-center border-b-2 border-gray-400">{record.final_grade}</td>
-                                        <td className="p-4 text-center border-b-2 border-gray-400">{record.instructor_name}</td>
-                                        <td className="p-4 text-center border-b-2 border-gray-400">
+                                    <tr className="hover:bg-gray-400 hover:text-gray-100" key={index}>
+                                        <td className={`${(index + 1) !== props.records.length && "border-b-2"} p-4 text-center border-gray-400`}>{record.course_code}</td> 
+                                        <td className={`${(index + 1) !== props.records.length && "border-b-2"} p-4 text-center border-gray-400`}>{record.course_title}</td>
+                                        <td className={`${(index + 1) !== props.records.length && "border-b-2"} p-4 text-center border-gray-400`}>{record.credit_unit_lec}</td>
+                                        <td className={`${(index + 1) !== props.records.length && "border-b-2"} p-4 text-center border-gray-400`}>{record.credit_unit_lab}</td>
+                                        <td className={`${(index + 1) !== props.records.length && "border-b-2"} p-4 text-center border-gray-400`}>{record.contact_hrs_lec}</td>
+                                        <td className={`${(index + 1) !== props.records.length && "border-b-2"} p-4 text-center border-gray-400`}>{record.contact_hrs_lab}</td>
+                                        <td className={`${(index + 1) !== props.records.length && "border-b-2"} p-4 text-center border-gray-400`}>{record.prerequisite}</td>
+                                        <td className={`${(index + 1) !== props.records.length && "border-b-2"} p-4 text-center border-gray-400`}>{record.year_taken && (<>Year {record.year_taken} Sem {record.sem_taken}</>)}</td>
+                                        <td className={`${(index + 1) !== props.records.length && "border-b-2"} p-4 text-center border-gray-400`}>{record.final_grade}</td>
+                                        <td className={`${(index + 1) !== props.records.length && "border-b-2"} p-4 text-center border-gray-400`}>{record.instructor_name}</td>
+                                        <td className={`${(index + 1) !== props.records.length && "border-b-2"} p-4 text-center border-gray-400`}>
                                             {
                                                 record.course_year === 5 ?
                                                 <>Year 3 Sem 3</>
@@ -143,14 +76,34 @@ const Records = (props) => {
                     </p> 
                 }
             </div>
-            {
-                loadNextRecords === "Yes" &&
-                <div className="absolute inset-0 w-full flex justify-center items-center text-gray-300 text-lg font-bold pointer-events-none">
-                    <div className="flex w-56 h-28 justify-center items-center bg-gray-400 bg-opacity-60 rounded-2xl">
-                        Fetching records...
+            <div className="px-3 rounded-b-2xl border border-b-2 border-gray-400 text-gray-300 bg-gray-500 overflow-hidden">
+                <div className="grid grid-cols-3">
+                    <div></div>
+                    <div className="flex p-3 justify-center">
+                        <div className="block">
+                        <button className={`${props.currentOffset === 0 && "invisible"} inline-block rounded-2xl w-10 h-10 mx-1 text-lg font-semibold border border-gray-400 transform rotate-90 hover:bg-gray-400 hover:text-gray-100`} onClick={ () => changeOffset(props.currentOffset - 1) }>
+                            ▼
+                        </button> 
+                            {
+                                Array.from({length: props.maxOffset}, (_, index) => 
+                                    <button className={`${props.currentOffset === index && "bg-gray-400"} inline-block rounded-2xl w-10 h-10 mx-1 text-lg font-semibold border border-gray-400 hover:bg-gray-400 hover:text-gray-100`} key={index} onClick={() => changeOffset(index)}>
+                                        {index + 1}
+                                    </button> 
+                                )
+                            }
+                        </div>
+                        <button className={`${(props.currentOffset === props.maxOffset - 1 || props.records.length === 0 || (props.records[0] === "Fetching" && props.maxOffset === 0)) && "invisible"} inline-block rounded-2xl w-10 h-10 mx-1 text-lg font-semibold border border-gray-400 transform -rotate-90 hover:bg-gray-400 hover:text-gray-100`} onClick={ () => changeOffset(props.currentOffset + 1) }>
+                            ▼
+                        </button> 
                     </div>
+                    {
+                        (props.maxOffset !== 0 && props.minRecord !== 0 && props.maxRecord !== 0) &&
+                        <div className="flex p-3 justify-end items-center text-md font-semibold">
+                            Showing records {props.minRecord}-{props.maxRecord}
+                        </div>
+                    }
                 </div>
-            }
+            </div>
         </div>
     );
 }
