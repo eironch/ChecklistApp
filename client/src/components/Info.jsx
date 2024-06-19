@@ -42,7 +42,7 @@ function Info(props) {
                 <div className="px-4 py-2 text-nowrap text-center bg-gray-500 relative z-10 border text-gray-300 font-bold border-gray-400 overflow-hidden">
                     Adviser Name
                 </div>
-                <div className={`${info ? "w-16 " :  "w-3/12"} px-4 py-2 text-nowrap text-center bg-gray-500 relative z-10 rounded-r-2xl border text-gray-300 border-gray-400 overflow-hidden`}>
+                <div className={`${info ? "w-2/12 " :  "w-3/12"} px-4 py-2 text-nowrap text-center bg-gray-500 relative z-10 rounded-r-2xl border text-gray-300 border-gray-400 overflow-hidden`}>
                     {info?.adviser_name || 'N/A'}
                 </div>
             </div>
