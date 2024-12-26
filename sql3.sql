@@ -152,7 +152,7 @@ INSERT INTO course_info VALUES (
 	null
 ),(
 	'GNED 06',
-	'Science, Technology and Society',
+	'Science, Technology, and Society',
 	1,
 	2,
 	3,
@@ -428,7 +428,7 @@ INSERT INTO course_info VALUES (
 	'DCIT 23'
 ),(
 	'DCIT 26',
-	'Applications Develompent And Emerging Technologies',
+	'Applications Development And Emerging Technologies',
 	3,
 	1,
 	2,

@@ -55,7 +55,9 @@ function Records(props) {
                                         <td className={`${(index + 1) !== props.records.length && "border-b-2"} p-4 text-center border-gray-400`}>{record.contact_hrs_lab}</td>
                                         <td className={`${(index + 1) !== props.records.length && "border-b-2"} p-4 text-center border-gray-400`}>{record.prerequisite}</td>
                                         <td className={`${(index + 1) !== props.records.length && "border-b-2"} p-4 text-center border-gray-400`}>{record.year_taken && (<>Year {record.year_taken} Sem {record.sem_taken}</>)}</td>
-                                        <td className={`${(index + 1) !== props.records.length && "border-b-2"} p-4 text-center border-gray-400`}>{record.final_grade}</td>
+                                        <td className={`${(index + 1) !== props.records.length && "border-b-2"} p-4 text-center border-gray-400`}>
+                                            {/* {record.final_grade} */}
+                                        </td>
                                         <td className={`${(index + 1) !== props.records.length && "border-b-2"} p-4 text-center border-gray-400`}>{record.instructor_name}</td>
                                         <td className={`${(index + 1) !== props.records.length && "border-b-2"} p-4 text-center border-gray-400`}>
                                             {
