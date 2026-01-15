@@ -30,7 +30,7 @@ app.get("/student_info", (req, res) => {
     SELECT * FROM student_info
     `;
 
-	db.query(query, (err, data) => {
+	pool.query(query, (err, data) => {
 		if (err) {
 			return res.json(err);
 		}
