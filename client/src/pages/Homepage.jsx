@@ -77,10 +77,6 @@ function Homepage() {
     }, [query, debouncedFetchAllRecords]);
 
     useEffect(() => {
-        currentOffsetRef.current = currentOffset;
-    }, [currentOffset])
-
-    useEffect(() => {
         return () => {
             debouncedFetchAllRecords.cancel();
         };
