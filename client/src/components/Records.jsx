@@ -1,6 +1,22 @@
 import React from 'react';
 
 function Records(props) {
+    function getPagination() {
+        if (props.maxOffset <= 5) {
+            return Array.from({length: props.maxOffset}, (_, index) => index);
+        }
+
+        if (props.currentOffset <= 2) {
+            return [0, 1, 2, '...', props.maxOffset - 1];
+        }
+
+        if (props.currentOffset >= props.maxOffset - 3) {
+            return [0, '...', props.maxOffset - 3, props.maxOffset - 2, props.maxOffset - 1];
+        }
+
+        return [0, '...', props.currentOffset - 1, props.currentOffset, props.currentOffset + 1, '...', props.maxOffset - 1];
+    }
+
     function changeOffset(index) {
         if (index > props.maxOffset) {
             return;
@@ -85,18 +101,21 @@ function Records(props) {
                         <div className="block">
                         <button className={`${props.currentOffset === 0 && "invisible"} inline-block rounded-2xl w-10 h-10 mx-1 text-lg font-semibold border border-gray-400 transform rotate-90 hover:bg-gray-400 hover:text-gray-100`} onClick={ () => changeOffset(props.currentOffset - 1) }>
                             ▼
-                        </button> 
-                            {
-                                Array.from({length: props.maxOffset}, (_, index) => 
-                                    <button className={`${props.currentOffset === index && "bg-gray-400"} inline-block rounded-2xl w-10 h-10 mx-1 text-lg font-semibold border border-gray-400 hover:bg-gray-400 hover:text-gray-100`} key={index} onClick={() => changeOffset(index)}>
-                                        {index + 1}
-                                    </button> 
-                                )
-                            }
+                        </button>
+                        {
+                            getPagination().map((page, index) =>
+                                page === '...' ?
+                                <span className="inline-block w-10 h-10 mx-1 text-lg font-semibold" key={index}>...</span>
+                                :
+                                <button className={`${props.currentOffset === page && "bg-gray-400"} inline-block rounded-2xl w-10 h-10 mx-1 text-lg font-semibold border border-gray-400 hover:bg-gray-400 hover:text-gray-100`} key={index} onClick={() => changeOffset(page)}>
+                                    {page + 1}
+                                </button>
+                            )
+                        }
                         </div>
                         <button className={`${(props.currentOffset === props.maxOffset - 1 || props.records.length === 0 || (props.records[0] === "Fetching" && props.maxOffset === 0)) && "invisible"} inline-block rounded-2xl w-10 h-10 mx-1 text-lg font-semibold border border-gray-400 transform -rotate-90 hover:bg-gray-400 hover:text-gray-100`} onClick={ () => changeOffset(props.currentOffset + 1) }>
                             ▼
-                        </button> 
+                        </button>
                     </div>
                     {
                         (props.maxOffset !== 0 && props.minRecord !== 0 && props.maxRecord !== 0) &&
